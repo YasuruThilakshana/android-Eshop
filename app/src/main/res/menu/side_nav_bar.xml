@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+<group android:id="@+id/side_nav_group_main" android:checkableBehavior="single"  >
+    <item
+        android:id="@+id/side_nav_home"
+        android:icon="@drawable/home"
+        android:title="@string/side_nav_bar_home"
+        android:checkable="true"
+        />
+    <item
+        android:id="@+id/side_nav_profile"
+        android:icon="@drawable/profile"
+        android:title="@string/side_nav_bar_profile"
+        android:visible="true"
+        android:checkable="true"/>
+    <item
+        android:id="@+id/side_nav_orders"
+        android:icon="@drawable/orders"
+        android:title="@string/side_nav_bar_Orders"
+        android:visible="true"
+        android:checkable="true"/>
+    <item
+        android:id="@+id/side_nav_wishlist"
+        android:icon="@drawable/wishlist"
+        android:title="@string/side_nav_bar_Wishlist"
+        android:visible="true"
+        android:checkable="true"
+        />
+    <item
+        android:id="@+id/side_nav_cart"
+        android:icon="@drawable/cart"
+        android:title="@string/side_nav_bar_Cart"
+        android:visible="true"
+        android:checkable="true"/>
+    <item
+
+        android:id="@+id/side_nav_message"
+        android:icon="@drawable/messages"
+        android:title="@string/side_nav_bar_Message"
+        android:visible="true"
+        android:checkable="true"/>
+    <item
+
+        android:id="@+id/side_nav_setting"
+        android:icon="@drawable/settings"
+        android:title="@string/side_nav_bar_Setting"
+        android:visible="true"
+        android:checkable="true"/>
+</group>
+
+    <group android:id="@+id/side_nav_group_login" android:checkableBehavior="single">
+        <item
+            android:id="@+id/side_nav_login"
+            android:icon="@drawable/login"
+            android:title="@string/side_nav_bar_LogIN"
+            android:checkable="true"/>
+        <item
+
+            android:id="@+id/side_nav_logout"
+            android:icon="@drawable/logout"
+            android:title="@string/side_nav_bar_Logout"
+            android:visible="true"
+            android:checkable="true"/>
+
+    </group>
+
+
+
+</menu>

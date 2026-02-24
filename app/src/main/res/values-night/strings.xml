@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="side_nav_bar_profile">Profile</string>
+    <string name="search_hint">search_hint</string>
+    <string name="login_title">Login to Eshop</string>
+    <string name="text_sign_up">Sign Up</string>
+    <string name="text_sign_in">Sign In</string>
+    <string name="text_signup_message">Allready have an account ?</string>
+</resources>

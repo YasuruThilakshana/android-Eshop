@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "13673958976",
+    "project_id": "eshop-d0b04",
+    "storage_bucket": "eshop-d0b04.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:13673958976:android:a22fc74855146dbfc899a5",
+        "android_client_info": {
+          "package_name": "lk.jiat.eshop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAURuHzxQB2APwl8ArIbXQZpfWaEk2bC6I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
