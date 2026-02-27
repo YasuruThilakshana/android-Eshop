@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import lk.jiat.eshop.R;
 import lk.jiat.eshop.databinding.ActivitySignUpBinding;
@@ -26,6 +27,8 @@ public class SignUpActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
 
+    private FirebaseFirestore firebaseFirestore;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +37,11 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         firebaseAuth = FirebaseAuth.getInstance();
+
+         firebaseFirestore = FirebaseFirestore.getInstance();
+
+
+
 
         binding.signupBtnSignup.setOnClickListener(view -> {
             Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
