@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -24,6 +25,8 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 
 import lk.jiat.eshop.R;
+import lk.jiat.eshop.databinding.ActivityMainBinding;
+import lk.jiat.eshop.databinding.SideNavHeaderBinding;
 import lk.jiat.eshop.fragment.CartFragment;
 import lk.jiat.eshop.fragment.CategoryFragment;
 import lk.jiat.eshop.fragment.HomeFragment;
@@ -36,8 +39,9 @@ import lk.jiat.eshop.fragment.WishlistFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, NavigationBarView.OnItemSelectedListener {
 
+private ActivityMainBinding binding;
 
-
+private SideNavHeaderBinding sideNavHeaderBinding;
     private DrawerLayout drawerLayout;
 
      private MaterialToolbar toolbar;
@@ -52,13 +56,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        View headerView = binding.sideNavigationView.getHeaderView(0);
+
+        sideNavHeaderBinding = SideNavHeaderBinding.bind(headerView);
 
 
-        drawerLayout = findViewById(R.id.drowerLayout);
-        toolbar = findViewById(R.id.toolbar);
-        navigationView = findViewById(R.id.side_navigation_view);
-        bottomNavigationView = findViewById(R.id.bottom_navigation_view);
+
+        drawerLayout = binding.drowerLayout;
+        toolbar = binding.toolbar;
+        navigationView = binding.sideNavigationView;
+        bottomNavigationView = binding.bottomNavigationView;
 
         setSupportActionBar(toolbar);
 
