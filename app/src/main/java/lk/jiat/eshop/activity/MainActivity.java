@@ -147,6 +147,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     });
 
+
+            //hide side nav login menu item
+            navigationView.getMenu().findItem(R.id.side_nav_login).setVisible(false);
+
+
+            //show side nav menu items
+            navigationView.getMenu().findItem(R.id.side_nav_profile).setVisible(true);
+            navigationView.getMenu().findItem(R.id.side_nav_orders).setVisible(true);
+            navigationView.getMenu().findItem(R.id.side_nav_wishlist).setVisible(true);
+            navigationView.getMenu().findItem(R.id.side_nav_cart).setVisible(true);
+            navigationView.getMenu().findItem(R.id.side_nav_message).setVisible(true);
+            navigationView.getMenu().findItem(R.id.side_nav_logout).setVisible(true);
+
+
         }
     }
 
@@ -175,6 +189,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
        }else if (itemId == R.id.side_nav_profile || itemId == R.id.bottom_nav_person){
 
+           if (firebaseAuth.getCurrentUser() == null){
+               Intent intent = new Intent(MainActivity.this, SignInActivity.class);
+               startActivity(intent);
+               finish();
+           }
            loadFragment( new ProfileFragment());
 //           navigationView.setCheckedItem(R.id.side_nav_profile);
             navigationView.getMenu().findItem(R.id.side_nav_profile).setChecked(true);
@@ -222,12 +241,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
            Intent intent = new Intent(MainActivity.this, SignInActivity.class);
            startActivity(intent);
-           finish();
+//           finish();
 
 
 
 
        }else if (itemId == R.id.side_nav_logout){
+             firebaseAuth.signOut();
+             loadFragment(new HomeFragment());
+             navigationView.getMenu().clear();
+             navigationView.inflateMenu(R.menu.side_nav_bar);
+
+
+             navigationView.removeHeaderView(sideNavHeaderBinding.getRoot());
+             navigationView.inflateHeaderView(R.layout.side_nav_header);
+
 
        }
 

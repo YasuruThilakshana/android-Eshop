@@ -3,15 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/header_profile_pic"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="bottom"
         android:layout_margin="20dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/profile"
+        app:shapeAppearanceOverlay="@style/CircleImage"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
@@ -20,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="125dp"
-        android:text="Lakshan"
+        android:text="You are not a logged user"
         />
 
     <TextView
@@ -30,7 +33,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginStart="125dp"
         android:layout_marginTop="20dp"
-        android:text="yasirithilakshana@.edu.lk"
+        android:text="example@email.com"
         />
 
 </FrameLayout>
