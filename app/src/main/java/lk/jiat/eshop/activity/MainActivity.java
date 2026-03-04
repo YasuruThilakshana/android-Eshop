@@ -2,6 +2,7 @@ package lk.jiat.eshop.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,10 +20,14 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import lk.jiat.eshop.R;
 import lk.jiat.eshop.databinding.ActivityMainBinding;
@@ -36,21 +41,25 @@ import lk.jiat.eshop.fragment.OrdersFragment;
 import lk.jiat.eshop.fragment.ProfileFragment;
 import lk.jiat.eshop.fragment.SettingFragment;
 import lk.jiat.eshop.fragment.WishlistFragment;
+import lk.jiat.eshop.model.User;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, NavigationBarView.OnItemSelectedListener {
 
-private ActivityMainBinding binding;
+    private ActivityMainBinding binding;
 
-private SideNavHeaderBinding sideNavHeaderBinding;
+    private SideNavHeaderBinding sideNavHeaderBinding;
     private DrawerLayout drawerLayout;
 
-     private MaterialToolbar toolbar;
+    private MaterialToolbar toolbar;
 
-     private NavigationView navigationView;
+    private NavigationView navigationView;
 
-      private BottomNavigationView bottomNavigationView;
+    private BottomNavigationView bottomNavigationView;
 
 
+    private FirebaseAuth firebaseAuth;
+
+    private FirebaseFirestore firebaseFirestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +74,6 @@ private SideNavHeaderBinding sideNavHeaderBinding;
         sideNavHeaderBinding = SideNavHeaderBinding.bind(headerView);
 
 
-
         drawerLayout = binding.drowerLayout;
         toolbar = binding.toolbar;
         navigationView = binding.sideNavigationView;
@@ -73,37 +81,74 @@ private SideNavHeaderBinding sideNavHeaderBinding;
 
         setSupportActionBar(toolbar);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.drawer_open,R.string.drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-       getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
 
 
-           @Override
-           public void handleOnBackPressed() {
-               if (drawerLayout.isDrawerOpen(GravityCompat.START)){
-                   drawerLayout.closeDrawer(GravityCompat.START);
-               }else{
-                   finish();
-               }
+            @Override
+            public void handleOnBackPressed() {
+                if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                } else {
+                    finish();
+                }
 
-           }
-           });
-
-
-       navigationView.setNavigationItemSelectedListener(this);
-       bottomNavigationView.setOnItemSelectedListener(this);
+            }
+        });
 
 
-       if (savedInstanceState == null){
-
-           loadFragment(new HomeFragment());
-
-       }
+        navigationView.setNavigationItemSelectedListener(this);
+        bottomNavigationView.setOnItemSelectedListener(this);
 
 
-       }
+        if (savedInstanceState == null) {
+
+            loadFragment(new HomeFragment());
+            navigationView.getMenu().findItem(R.id.side_nav_home).setChecked(true);
+            bottomNavigationView.getMenu().findItem(R.id.bottom_nav_home).setChecked(true);
+
+        }
+
+        firebaseAuth = firebaseAuth.getInstance();
+        firebaseFirestore = firebaseFirestore.getInstance();
+
+//checked and load user details
+
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+
+        if (currentUser != null) {
+
+            firebaseFirestore.collection("users")
+                    .document(currentUser.getUid())
+                    .get().addOnSuccessListener(documentSnapshot -> {
+
+                        if (documentSnapshot.exists()) {
+                            User user = documentSnapshot.toObject(User.class);
+                            sideNavHeaderBinding.headerUserName.setText(user.getName());
+                            sideNavHeaderBinding.headerUserEmail.setText(user.getEmail());
+
+                            Glide.with(MainActivity.this)
+                                    .load(user.getProfilePicUrl())
+                                    .circleCrop()
+                                    .into(sideNavHeaderBinding.headerProfilePic);
+
+
+                        } else {
+
+                            Log.e("Firestore", "Document does not exist");
+
+                        }
+
+                    }).addOnFailureListener(e -> {
+                        Log.e("Firestore", "Error: " + e.getMessage());
+
+                    });
+
+        }
+    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
