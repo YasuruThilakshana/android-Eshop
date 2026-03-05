@@ -18,11 +18,13 @@ import lk.jiat.eshop.model.Category;
 
 public class CategoryAdapter extends  RecyclerView.Adapter<CategoryAdapter.ViewHolder>{
 
-
     private List<Category> categories;
+    private OnCategoryClickListener listener;
 
-    public CategoryAdapter(List<Category> categories) {
+
+    public CategoryAdapter(List<Category> categories , OnCategoryClickListener listener) {
         this.categories = categories;
+        this.listener = listener;
     }
 
 
@@ -42,7 +44,15 @@ public class CategoryAdapter extends  RecyclerView.Adapter<CategoryAdapter.ViewH
         holder.categoryName.setText(category.getName());
         Glide.with(holder.itemView.getContext())
                 .load(category.getImageUrl())
-                .into(holder.imageView);
+                .centerCrop()
+                .into(holder.imageView );
+
+        holder.itemView.setOnClickListener(View -> {
+            if (listener != null) {
+                listener.onCategoryClick(category);
+            }
+        });
+
     }
 
     @Override
@@ -62,6 +72,10 @@ TextView categoryName;
             categoryName = itemView.findViewById(R.id.category_name);
 
         }
+
+    }
+    public  interface  OnCategoryClickListener{
+        void onCategoryClick(Category category);
 
     }
 }

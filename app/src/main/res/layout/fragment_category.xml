@@ -8,10 +8,9 @@
     <!-- TODO: Update blank fragment layout -->
 <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/recycler_view_category"
-    android:layout_width="0dp"
-    android:layout_height="0dp"
-    android:padding="8dp"
-    android:background="@color/md_theme_primaryContainer"/>
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp"/>
 
 
 </FrameLayout>
