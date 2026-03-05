@@ -87,6 +87,18 @@ public class CategoryFragment extends Fragment {
                         List<Category> categories = task.getResult().toObjects(Category.class);
                         adapter = new CategoryAdapter(categories, category -> {
 
+                        Bundle bundle = new Bundle();
+                        bundle.putString("categoryId", category.getCategoryId());
+
+
+                        ListingFragment fragment = new ListingFragment();
+                        fragment.setArguments(bundle);
+
+                       getParentFragmentManager()
+                      .beginTransaction()
+                      .replace(R.id.fragment_container, fragment)
+                               .addToBackStack(null)
+                               .commit();
 
 
                         } );
