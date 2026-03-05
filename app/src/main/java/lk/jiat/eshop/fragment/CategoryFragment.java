@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -84,7 +85,11 @@ public class CategoryFragment extends Fragment {
                         QuerySnapshot result = task.getResult();
 
                         List<Category> categories = task.getResult().toObjects(Category.class);
-                        adapter = new CategoryAdapter(categories);
+                        adapter = new CategoryAdapter(categories, category -> {
+
+
+
+                        } );
                         binding.recyclerViewCategory.setAdapter(adapter);
 
 
